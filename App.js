@@ -1,117 +1,151 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, Dimensions, TouchableOpacity } from 'react-native';
+const windoWidth = Dimensions.get('window').width;
+const windoHeight = Dimensions.get('window').height;
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+const App = () => {
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <ScrollView style={styles.MainView}>
+      <View style={{ justifyContent: "center", alignItems: "center", marginVertical: 20 }}>
+        <Text style={{ fontSize: 20, color: "black", fontWeight: "700" }}>Order Details</Text>
+      </View>
+      <View style={styles.BoxView}>
+        <View>
+          <Text style={{ fontSize: 17, color: "black", fontWeight: "700" }}>Order Details:</Text>
+          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>1) Cheese Momos</Text>
+          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>2) Veg Momos</Text>
+          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>3) Spicy Momos</Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+        <View>
+          <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order By: Abhishek</Text>
+        </View>
+        <View>
+          <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order ID: 46215823</Text>
+        </View>
+        <View style={styles.DetailView}>
+          <Text style={styles.TextPrice}>Amount : 464/-</Text>
+          <TouchableOpacity style={styles.Amount}>
+            <Text style={{ color: "white", fontSize: 20, fontWeight: "600" }}>Ok</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+          <TouchableOpacity style={styles.OrderReadyView}>
+            <Text style={styles.OrderReadyText}>Ready</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red" }]}>
+            <Text style={styles.OrderReadyText}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={styles.BoxView}>
+        <View>
+          <Text style={{ fontSize: 17, color: "black", fontWeight: "700" }}>Order Details:</Text>
+          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>1) Cheese Momos</Text>
+          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>2) Veg Momos</Text>
+          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>3) Spicy Momos</Text>
+        </View>
+        <View>
+          <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order By: Abhishek</Text>
+        </View>
+        <View>
+          <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order ID: 46215823</Text>
+        </View>
+        <View style={styles.DetailView}>
+          <Text style={styles.TextPrice}>Amount : 464/-</Text>
+          <TouchableOpacity style={styles.Amount}>
+            <Text style={{ color: "white", fontSize: 20, fontWeight: "600" }}>Ok</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+          <TouchableOpacity style={styles.OrderReadyView}>
+            <Text style={styles.OrderReadyText}>Ready</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red" }]}>
+            <Text style={styles.OrderReadyText}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={styles.BoxView}>
+        <View>
+          <Text style={{ fontSize: 17, color: "black", fontWeight: "700" }}>Order Details:</Text>
+          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>1) Cheese Momos</Text>
+          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>2) Veg Momos</Text>
+          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>3) Spicy Momos</Text>
+        </View>
+        <View>
+          <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order By: Abhishek</Text>
+        </View>
+        <View>
+          <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order ID: 46215823</Text>
+        </View>
+        <View style={styles.DetailView}>
+          <Text style={styles.TextPrice}>Amount : 464/-</Text>
+          <TouchableOpacity style={styles.Amount}>
+            <Text style={{ color: "white", fontSize: 20, fontWeight: "600" }}>Ok</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+          <TouchableOpacity style={styles.OrderReadyView}>
+            <Text style={styles.OrderReadyText}>Ready</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red" }]}>
+            <Text style={styles.OrderReadyText}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  MainView: {
+    backgroundColor: "white",
+    width: windoWidth,
+    height: windoHeight
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  BoxView: {
+    // borderWidth: 1,
+    marginHorizontal: 10,
+    marginVertical: 7,
+    borderRadius: 10,
+    padding: 10,
+    backgroundColor: "#BEFBC9"
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  DetailView: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 10
+    // justifyContent: "space-around"
   },
-  highlight: {
-    fontWeight: '700',
+  Amount: {
+    // borderWidth: 1,
+    padding: 6,
+    borderRadius: 8,
+    paddingHorizontal: 20,
+    backgroundColor: "#09A124"
   },
+  TextPrice: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "black"
+  },
+  OrderReadyView: {
+    borderRadius: 8,
+    paddingVertical: 7,
+    marginVertical: 20,
+    backgroundColor: "#18B900",
+    alignItems: "center",
+    paddingHorizontal: 6,
+    width: windoWidth / 2.5,
+  },
+  OrderReadyText: {
+    fontSize: 15,
+    color: "white"
+  }
 });
 
 export default App;
