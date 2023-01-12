@@ -10,6 +10,7 @@ const App = () => {
       <View style={{ justifyContent: "center", alignItems: "center", marginVertical: 20 }}>
         <Text style={{ fontSize: 20, color: "black", fontWeight: "700" }}>Order Details</Text>
       </View>
+
       <View style={styles.BoxView}>
         <View>
           <Text style={{ fontSize: 17, color: "black", fontWeight: "700" }}>Order Details:</Text>
@@ -26,15 +27,15 @@ const App = () => {
         <View style={styles.DetailView}>
           <Text style={styles.TextPrice}>Amount : 464/-</Text>
           <TouchableOpacity style={styles.Amount}>
-            <Text style={{ color: "white", fontSize: 20, fontWeight: "600" }}>Ok</Text>
+            <Text style={{ color: "green", fontSize: 20, fontWeight: "600" }}>Ok</Text>
           </TouchableOpacity>
         </View>
         <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
           <TouchableOpacity style={styles.OrderReadyView}>
             <Text style={styles.OrderReadyText}>Ready</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red" }]}>
-            <Text style={styles.OrderReadyText}>Cancel</Text>
+          <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red", borderColor: "white" }]}>
+            <Text style={[styles.OrderReadyText, { color: "white" }]}>Cancel</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -54,15 +55,15 @@ const App = () => {
         <View style={styles.DetailView}>
           <Text style={styles.TextPrice}>Amount : 464/-</Text>
           <TouchableOpacity style={styles.Amount}>
-            <Text style={{ color: "white", fontSize: 20, fontWeight: "600" }}>Ok</Text>
+            <Text style={{ color: "green", fontSize: 20, fontWeight: "600" }}>Ok</Text>
           </TouchableOpacity>
         </View>
         <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
           <TouchableOpacity style={styles.OrderReadyView}>
             <Text style={styles.OrderReadyText}>Ready</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red" }]}>
-            <Text style={styles.OrderReadyText}>Cancel</Text>
+          <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red", borderColor: "white" }]}>
+            <Text style={[styles.OrderReadyText, { color: "white" }]}>Cancel</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -82,18 +83,19 @@ const App = () => {
         <View style={styles.DetailView}>
           <Text style={styles.TextPrice}>Amount : 464/-</Text>
           <TouchableOpacity style={styles.Amount}>
-            <Text style={{ color: "white", fontSize: 20, fontWeight: "600" }}>Ok</Text>
+            <Text style={{ color: "green", fontSize: 20, fontWeight: "600" }}>Ok</Text>
           </TouchableOpacity>
         </View>
         <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
           <TouchableOpacity style={styles.OrderReadyView}>
             <Text style={styles.OrderReadyText}>Ready</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red" }]}>
-            <Text style={styles.OrderReadyText}>Cancel</Text>
+          <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red", borderColor: "white" }]}>
+            <Text style={[styles.OrderReadyText, { color: "white" }]}>Cancel</Text>
           </TouchableOpacity>
         </View>
       </View>
+
     </ScrollView>
   );
 };
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
     marginVertical: 7,
     borderRadius: 10,
     padding: 10,
-    backgroundColor: "#BEFBC9"
+    backgroundColor: "#FEF8FB"
   },
   DetailView: {
     display: "flex",
@@ -122,11 +124,12 @@ const styles = StyleSheet.create({
     // justifyContent: "space-around"
   },
   Amount: {
-    // borderWidth: 1,
+    borderWidth: 1,
     padding: 6,
-    borderRadius: 8,
+    borderRadius: 4,
     paddingHorizontal: 20,
-    backgroundColor: "#09A124"
+    backgroundColor: "white",
+    borderColor: "green"
   },
   TextPrice: {
     fontSize: 20,
@@ -134,17 +137,19 @@ const styles = StyleSheet.create({
     color: "black"
   },
   OrderReadyView: {
-    borderRadius: 8,
+    borderRadius: 4,
     paddingVertical: 7,
     marginVertical: 20,
-    backgroundColor: "#18B900",
+    backgroundColor: "white",
     alignItems: "center",
     paddingHorizontal: 6,
     width: windoWidth / 2.5,
+    borderColor: "#09A124",
+    borderWidth: 1
   },
   OrderReadyText: {
     fontSize: 15,
-    color: "white"
+    color: "green"
   }
 });
 
