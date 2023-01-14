@@ -1,100 +1,80 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, Dimensions, TouchableOpacity } from 'react-native';
 const windoWidth = Dimensions.get('window').width;
 const windoHeight = Dimensions.get('window').height;
 
 const App = () => {
-
+  // let NewData = []
+  const [allOrderArray, setallOrderArray] = useState([])
+  useEffect(() => {
+    data();
+  }, [allOrderArray]);
+  const data = async () => {
+    await fetch(`https://ordermanagementserver-production.up.railway.app/allOrder`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application.json'
+      },
+    }).then((res) => res.json()).then((data) => {
+      const NewData = data;
+      setallOrderArray(NewData)
+    })
+  }
   return (
     <ScrollView style={styles.MainView}>
       <View style={{ justifyContent: "center", alignItems: "center", marginVertical: 20 }}>
-        <Text style={{ fontSize: 20, color: "black", fontWeight: "700" }}>Order Details</Text>
+        <Text style={{ fontSize: 20, color: "black", fontWeight: "700" }}>All Order Details</Text>
       </View>
+      {
+        allOrderArray.length == 0 ? null :
+          allOrderArray.map((item) => (
+            <View style={styles.BoxView} key={item._id}>
+              <View>
+                <Text style={{ fontSize: 17, color: "black", fontWeight: "700", alignSelf: "center" }}>Order Details:</Text>
+                <Text style={{ fontSize: 16, color: "black", fontWeight: "700", marginVertical: 10, marginHorizontal: 10 }}>Item Details</Text>
+                {
+                  item.order.map((value) => (
+                    <>
+                      <Text key={value._id} style={{ fontSize: 20, color: "black", margin: 5 }}>dishName: {value.dishName}</Text>
+                      <Text style={{ fontSize: 20, color: "black", margin: 5 }}>quantity: {value.amount}</Text>
+                      <Text style={{ fontSize: 20, color: "black", margin: 5 }}>price: {value.price}</Text>
+                    </>
 
-      <View style={styles.BoxView}>
-        <View>
-          <Text style={{ fontSize: 17, color: "black", fontWeight: "700" }}>Order Details:</Text>
-          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>1) Cheese Momos</Text>
-          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>2) Veg Momos</Text>
-          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>3) Spicy Momos</Text>
-        </View>
-        <View>
-          <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order By: Abhishek</Text>
-        </View>
-        <View>
-          <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order ID: 46215823</Text>
-        </View>
-        <View style={styles.DetailView}>
-          <Text style={styles.TextPrice}>Amount : 464/-</Text>
-          <TouchableOpacity style={styles.Amount}>
-            <Text style={{ color: "green", fontSize: 20, fontWeight: "600" }}>Ok</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-          <TouchableOpacity style={styles.OrderReadyView}>
-            <Text style={styles.OrderReadyText}>Ready</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red", borderColor: "white" }]}>
-            <Text style={[styles.OrderReadyText, { color: "white" }]}>Cancel</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.BoxView}>
-        <View>
-          <Text style={{ fontSize: 17, color: "black", fontWeight: "700" }}>Order Details:</Text>
-          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>1) Cheese Momos</Text>
-          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>2) Veg Momos</Text>
-          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>3) Spicy Momos</Text>
-        </View>
-        <View>
-          <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order By: Abhishek</Text>
-        </View>
-        <View>
-          <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order ID: 46215823</Text>
-        </View>
-        <View style={styles.DetailView}>
-          <Text style={styles.TextPrice}>Amount : 464/-</Text>
-          <TouchableOpacity style={styles.Amount}>
-            <Text style={{ color: "green", fontSize: 20, fontWeight: "600" }}>Ok</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-          <TouchableOpacity style={styles.OrderReadyView}>
-            <Text style={styles.OrderReadyText}>Ready</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red", borderColor: "white" }]}>
-            <Text style={[styles.OrderReadyText, { color: "white" }]}>Cancel</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.BoxView}>
-        <View>
-          <Text style={{ fontSize: 17, color: "black", fontWeight: "700" }}>Order Details:</Text>
-          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>1) Cheese Momos</Text>
-          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>2) Veg Momos</Text>
-          <Text style={{ fontSize: 20, color: "black", margin: 5 }}>3) Spicy Momos</Text>
-        </View>
-        <View>
-          <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order By: Abhishek</Text>
-        </View>
-        <View>
-          <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order ID: 46215823</Text>
-        </View>
-        <View style={styles.DetailView}>
-          <Text style={styles.TextPrice}>Amount : 464/-</Text>
-          <TouchableOpacity style={styles.Amount}>
-            <Text style={{ color: "green", fontSize: 20, fontWeight: "600" }}>Ok</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-          <TouchableOpacity style={styles.OrderReadyView}>
-            <Text style={styles.OrderReadyText}>Ready</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red", borderColor: "white" }]}>
-            <Text style={[styles.OrderReadyText, { color: "white" }]}>Cancel</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+                  ))
+                }
+              </View>
+              <View>
+                <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order By: {item.name}</Text>
+              </View>
+              <View>
+                <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order ID: {item._id}</Text>
+              </View>
+              <View>
+                <Text style={[styles.TextPrice, { marginHorizontal: 10 }]}>Phone :{item.phone}</Text>
+              </View>
+              <View>
+                <Text style={[styles.TextPrice, { marginHorizontal: 10, marginVertical: 20 }]}>Address :{item.address}</Text>
+              </View>
+              <View style={styles.DetailView}>
+                <Text style={styles.TextPrice}>Amount :{item.totalAmount}</Text>
+                <TouchableOpacity style={styles.Amount}>
+                  <Text style={{ color: "green", fontSize: 20, fontWeight: "600" }}>Ok</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+                <TouchableOpacity style={styles.OrderReadyView}>
+                  <Text style={styles.OrderReadyText}>Ready</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red", borderColor: "white" }]}>
+                  <Text style={[styles.OrderReadyText, { color: "white" }]}>Cancel</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))
+      }
+
+
+
 
     </ScrollView>
   );
