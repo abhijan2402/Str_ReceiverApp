@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import AllOrder from '../Screen/AllOrder';
 import PendingOrder from '../Screen/PendingOrder';
-const Tab = createMaterialTopTabNavigator();
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+const Tab = createBottomTabNavigator();
 
 const TopBar = () => {
   return (

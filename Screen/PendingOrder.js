@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, Dimensions, TouchableOpacity } from 'react-native';
+import { log } from 'react-native-reanimated';
 const windoWidth = Dimensions.get('window').width;
 const windoHeight = Dimensions.get('window').height;
 function PendingOrder() {
@@ -15,12 +16,28 @@ function PendingOrder() {
                 'Content-Type': 'application.json'
             },
         }).then((res) => res.json()).then((data) => {
-            // console.log(data)
-            NewData = data;
-            // console.log(NewData)
-            allOrderArray1.push({ ...NewData })
-            console.log(allOrderArray1, "I am")
+            NewData.push(data);
+            setallOrderArray1(NewData)
         })
+    }
+    const confirmOrder = (item) => {
+        item.order.forEach(element => {
+            fetch(`https://ordermanagementserver-production.up.railway.app/orderReady`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application.json'
+                },
+                body:JSON.stringify({
+                    orderId:element._id
+                })
+            }).then((res) => res.json()).
+            then((response) => {
+                console.log(response)
+            })
+            .catch((e)=>{
+                console.log(e)
+            }) 
+        });
     }
     return (
         <ScrollView style={styles.MainView}>
@@ -29,8 +46,8 @@ function PendingOrder() {
             </View>
             {
                 allOrderArray1.length == 0 ? null :
-                    allOrderArray1.map((item) => (
-                        <View style={styles.BoxView} key={item._id}>
+                    allOrderArray1.map((item,index) => (
+                        <View key={index} style={styles.BoxView} >
                             <View>
                                 <Text style={{ fontSize: 17, color: "black", fontWeight: "700", alignSelf: "center" }}>Order Details:</Text>
                                 <Text style={{ fontSize: 16, color: "black", fontWeight: "700", marginVertical: 10, marginHorizontal: 10 }}>Item Details</Text>
@@ -64,7 +81,7 @@ function PendingOrder() {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-                                <TouchableOpacity style={styles.OrderReadyView}>
+                                <TouchableOpacity style={styles.OrderReadyView} onPress={()=>confirmOrder(item)}>
                                     <Text style={styles.OrderReadyText}>Ready</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red", borderColor: "white" }]}>
