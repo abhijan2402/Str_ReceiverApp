@@ -3,7 +3,7 @@ import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, 
 const windoWidth = Dimensions.get('window').width;
 const windoHeight = Dimensions.get('window').height;
 function PendingOrder() {
-    const [allOrderArray1, setallOrderArray1] = useState([])
+    let [allOrderArray1, setallOrderArray1] = useState([])
     let NewData = []
     useEffect(() => {
         data();
@@ -30,7 +30,7 @@ function PendingOrder() {
             {
                 allOrderArray1.length == 0 ? null :
                     allOrderArray1.map((item) => (
-                        <View style={styles.BoxView}>
+                        <View style={styles.BoxView} key={item._id}>
                             <View>
                                 <Text style={{ fontSize: 17, color: "black", fontWeight: "700", alignSelf: "center" }}>Order Details:</Text>
                                 <Text style={{ fontSize: 16, color: "black", fontWeight: "700", marginVertical: 10, marginHorizontal: 10 }}>Item Details</Text>
@@ -78,7 +78,7 @@ function PendingOrder() {
 
 
 
-        </ScrollView>
+        </ScrollView >
     )
 }
 const styles = StyleSheet.create({

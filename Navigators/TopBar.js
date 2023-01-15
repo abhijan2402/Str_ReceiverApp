@@ -8,9 +8,9 @@ const Tab = createMaterialTopTabNavigator();
 const TopBar = () => {
   return (
     <Tab.Navigator>
-    <Tab.Screen name="AllOrder" component={AllOrder} />
-    <Tab.Screen name="PendingOrder" component={PendingOrder} />
-  </Tab.Navigator>
+      <Tab.Screen name="AllOrder" component={AllOrder} />
+      <Tab.Screen name="PendingOrder" component={PendingOrder} />
+    </Tab.Navigator>
   )
 }
 

@@ -10,12 +10,12 @@ const App = () => {
   const Stack = createNativeStackNavigator();
   return (
     <>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="TopBar" component={TopBar}/>
-      </Stack.Navigator>
-    </NavigationContainer>
-   
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="TopBar" component={TopBar} options={{ headerShown: false }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+
       {/* <AllOrder /> */}
     </>
   );
