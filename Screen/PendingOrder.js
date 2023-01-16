@@ -49,31 +49,31 @@ function PendingOrder() {
             }
         >
             <View style={{ justifyContent: "center", alignItems: "center", marginVertical: 20 }}>
-                <Text style={{ fontSize: 20, color: "black", fontWeight: "700" }}>All Pending Order Details</Text>
+                <Text style={{ fontSize: 20, color: "black", fontFamily:"Ubuntu-Bold" }}>All Pending Order Details</Text>
             </View>
             {
                 allOrderArray1.length == 0 ? null :
                     allOrderArray1.map((item,index) => (
                         <View key={index} style={styles.BoxView} >
                             <View>
-                                <Text style={{ fontSize: 17, color: "black", fontWeight: "700", alignSelf: "center" }}>Order Details:</Text>
-                                <Text style={{ fontSize: 16, color: "black", fontWeight: "700", marginVertical: 10, marginHorizontal: 10 }}>Item Details</Text>
+                                <Text style={{ fontSize: 17, color: "black", fontFamily:"Ubuntu-Bold", alignSelf: "center" }}>Order Details:</Text>
+                                <Text style={{ fontSize: 16, color: "black",fontFamily:"Ubuntu-Bold",  marginVertical: 10, marginHorizontal: 10 }}>Item Details</Text>
                                 {
                                     item.order.map((value) => (
                                         <>
-                                            <Text key={value._id} style={{ fontSize: 20, color: "black", margin: 5 }}>dishName: {value.dishName}</Text>
-                                            <Text style={{ fontSize: 20, color: "black", margin: 5 }}>quantity: {value.amount}</Text>
-                                            <Text style={{ fontSize: 20, color: "black", margin: 5 }}>price: {value.price}</Text>
+                                            <Text key={value._id} style={{ fontSize: 20, color: "black", margin: 5,fontFamily:"Ubuntu-Regular" }}>dishName: {value.dishName}</Text>
+                                            <Text style={{ fontSize: 20, color: "black", margin: 5,fontFamily:"Ubuntu-Regular" }}>quantity: {value.amount}</Text>
+                                            <Text style={{ fontSize: 20, color: "black", margin: 5,fontFamily:"Ubuntu-Regular" }}>price: {value.price}</Text>
                                         </>
 
                                     ))
                                 }
                             </View>
                             <View>
-                                <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order By: {item.name}</Text>
+                                <Text style={{ fontSize: 20, color: "green", margin: 10,fontFamily:"Ubuntu-Medium" }}>Order By: {item.name}</Text>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 20, color: "green", margin: 10, fontWeight: "600" }}>Order ID: {item._id}</Text>
+                                <Text style={{ fontSize: 20, color: "green", margin: 10,fontFamily:"Ubuntu-Medium" }}>Order ID: {item._id}</Text>
                             </View>
                             <View>
                                 <Text style={[styles.TextPrice, { marginHorizontal: 10 }]}>Phone :{item.phone}</Text>
@@ -84,7 +84,7 @@ function PendingOrder() {
                             <View style={styles.DetailView}>
                                 <Text style={styles.TextPrice}>Amount :{item.totalAmount}</Text>
                                 <TouchableOpacity style={styles.Amount}>
-                                    <Text style={{ color: "green", fontSize: 20, fontWeight: "600" }}>Ok</Text>
+                                    <Text style={{ color: "green", fontSize: 20,fontFamily:"Ubuntu-Medium"  }}>Ok</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     },
     TextPrice: {
         fontSize: 20,
-        fontWeight: "600",
+        fontFamily:"Ubuntu-Medium",
         color: "black"
     },
     OrderReadyView: {
@@ -154,7 +154,8 @@ const styles = StyleSheet.create({
     },
     OrderReadyText: {
         fontSize: 15,
-        color: "green"
+        color: "green",
+        fontFamily:"Ubuntu-Medium" 
     }
 });
 export default PendingOrder

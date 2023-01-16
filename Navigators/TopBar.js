@@ -3,6 +3,7 @@ import React from 'react'
 import AllOrder from '../Screen/AllOrder';
 import PendingOrder from '../Screen/PendingOrder';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Octicons } from 'react-native-vector-icons/Octicons';
 const Tab = createBottomTabNavigator();
 
 const TopBar = () => {
@@ -15,6 +16,11 @@ const TopBar = () => {
       showIcon: false,
   
           tabBarStyle:[ {
+            // position:"absolute",
+            // bottom:25,
+            // left:20,
+            // right:20,
+            // elevation:0,
             backgroundColor:"#FFFFFF",
             height:70,
           },],
@@ -50,6 +56,7 @@ const TopBar = () => {
               tintColor:focused ? '#047BD5' : 'black'
             }}
             /> */}
+           
             <Text style={{color:focused ? '#047BD5' : 'black',fontFamily:"SourceSansPro-Regular"}}>PendingOrder</Text>
           </View>
         )
