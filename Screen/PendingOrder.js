@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, Dimensions, TouchableOpacity } from 'react-native';
-import { log } from 'react-native-reanimated';
+import React, { useEffect, useState,useCallback } from 'react';
+import { RefreshControl, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, Dimensions, TouchableOpacity } from 'react-native';
 const windoWidth = Dimensions.get('window').width;
 const windoHeight = Dimensions.get('window').height;
 function PendingOrder() {
     let [allOrderArray1, setallOrderArray1] = useState([])
+    const [refreshing, setRefreshing] = React.useState(false);
     let NewData = []
     useEffect(() => {
         data();
@@ -13,7 +13,7 @@ function PendingOrder() {
         await fetch(`https://ordermanagementserver-production.up.railway.app/orderPending`, {
             method: "GET",
             headers: {
-                'Content-Type': 'application.json'
+                'Content-Type': 'application/json'
             },
         }).then((res) => res.json()).then((data) => {
             NewData.push(data);
@@ -21,26 +21,33 @@ function PendingOrder() {
         })
     }
     const confirmOrder = (item) => {
-        item.order.forEach(element => {
-            fetch(`https://ordermanagementserver-production.up.railway.app/orderReady`, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application.json'
-                },
-                body:JSON.stringify({
-                    orderId:element._id
-                })
-            }).then((res) => res.json()).
-            then((response) => {
-                console.log(response)
+        console.log(item._id);
+        fetch(`https://ordermanagementserver-production.up.railway.app/orderReady`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                orderId:item._id
             })
-            .catch((e)=>{
-                console.log(e)
-            }) 
-        });
+        })
+        .then((res) => res.json())
+        .then((response) => {
+            alert(response.message)
+        })
+        .catch((e)=>{
+            console.log(e)
+        }) 
     }
+    const onRefresh = useCallback(() => {
+        data()
+    }, []);
     return (
-        <ScrollView style={styles.MainView}>
+        <ScrollView style={styles.MainView}
+            refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+        >
             <View style={{ justifyContent: "center", alignItems: "center", marginVertical: 20 }}>
                 <Text style={{ fontSize: 20, color: "black", fontWeight: "700" }}>All Pending Order Details</Text>
             </View>
