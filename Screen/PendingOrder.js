@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { RefreshControl, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, Dimensions, TouchableOpacity } from 'react-native';
 const windoWidth = Dimensions.get('window').width;
 const windoHeight = Dimensions.get('window').height;
@@ -16,8 +16,13 @@ function PendingOrder() {
                 'Content-Type': 'application/json'
             },
         }).then((res) => res.json()).then((data) => {
+            // console.log(data)
             NewData.push(data);
-            setallOrderArray1(NewData)
+            // console.log(NewData, "I am new data")
+
+            setallOrderArray1(...NewData)
+            console.log(allOrderArray1, "I am new json")
+
         })
     }
     const confirmOrder = (item) => {
@@ -27,17 +32,18 @@ function PendingOrder() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify({
-                orderId:item._id
+            body: JSON.stringify({
+                orderId: item._id
             })
         })
-        .then((res) => res.json())
-        .then((response) => {
-            alert(response.message)
-        })
-        .catch((e)=>{
-            console.log(e)
-        }) 
+            .then((res) => res.json())
+            .then((response) => {
+                alert(response.message)
+                data();
+            })
+            .catch((e) => {
+                console.log(e)
+            })
     }
     const onRefresh = useCallback(() => {
         data()
@@ -49,31 +55,31 @@ function PendingOrder() {
             }
         >
             <View style={{ justifyContent: "center", alignItems: "center", marginVertical: 20 }}>
-                <Text style={{ fontSize: 20, color: "black", fontFamily:"Ubuntu-Bold" }}>All Pending Order Details</Text>
+                <Text style={{ fontSize: 20, color: "black", fontFamily: "Ubuntu-Bold" }}>All Pending Order Details</Text>
             </View>
             {
                 allOrderArray1.length == 0 ? null :
-                    allOrderArray1.map((item,index) => (
+                    allOrderArray1.map((item, index) => (
                         <View key={index} style={styles.BoxView} >
                             <View>
-                                <Text style={{ fontSize: 17, color: "black", fontFamily:"Ubuntu-Bold", alignSelf: "center" }}>Order Details:</Text>
-                                <Text style={{ fontSize: 16, color: "black",fontFamily:"Ubuntu-Bold",  marginVertical: 10, marginHorizontal: 10 }}>Item Details</Text>
+                                <Text style={{ fontSize: 17, color: "black", fontFamily: "Ubuntu-Bold", alignSelf: "center" }}>Order Details:</Text>
+                                <Text style={{ fontSize: 16, color: "black", fontFamily: "Ubuntu-Bold", marginVertical: 10, marginHorizontal: 10 }}>Item Details</Text>
                                 {
                                     item.order.map((value) => (
                                         <>
-                                            <Text key={value._id} style={{ fontSize: 20, color: "black", margin: 5,fontFamily:"Ubuntu-Regular" }}>dishName: {value.dishName}</Text>
-                                            <Text style={{ fontSize: 20, color: "black", margin: 5,fontFamily:"Ubuntu-Regular" }}>quantity: {value.amount}</Text>
-                                            <Text style={{ fontSize: 20, color: "black", margin: 5,fontFamily:"Ubuntu-Regular" }}>price: {value.price}</Text>
+                                            <Text key={value._id} style={{ fontSize: 20, color: "black", margin: 5, fontFamily: "Ubuntu-Regular" }}>dishName: {value.dishName}</Text>
+                                            <Text style={{ fontSize: 20, color: "black", margin: 5, fontFamily: "Ubuntu-Regular" }}>quantity: {value.amount}</Text>
+                                            <Text style={{ fontSize: 20, color: "black", margin: 5, fontFamily: "Ubuntu-Regular" }}>price: {value.price}</Text>
                                         </>
 
                                     ))
                                 }
                             </View>
                             <View>
-                                <Text style={{ fontSize: 20, color: "green", margin: 10,fontFamily:"Ubuntu-Medium" }}>Order By: {item.name}</Text>
+                                <Text style={{ fontSize: 20, color: "green", margin: 10, fontFamily: "Ubuntu-Medium" }}>Order By: {item.name}</Text>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 20, color: "green", margin: 10,fontFamily:"Ubuntu-Medium" }}>Order ID: {item._id}</Text>
+                                <Text style={{ fontSize: 20, color: "green", margin: 10, fontFamily: "Ubuntu-Medium" }}>Order ID: {item._id}</Text>
                             </View>
                             <View>
                                 <Text style={[styles.TextPrice, { marginHorizontal: 10 }]}>Phone :{item.phone}</Text>
@@ -84,11 +90,11 @@ function PendingOrder() {
                             <View style={styles.DetailView}>
                                 <Text style={styles.TextPrice}>Amount :{item.totalAmount}</Text>
                                 <TouchableOpacity style={styles.Amount}>
-                                    <Text style={{ color: "green", fontSize: 20,fontFamily:"Ubuntu-Medium"  }}>Ok</Text>
+                                    <Text style={{ color: "green", fontSize: 20, fontFamily: "Ubuntu-Medium" }}>Ok</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-                                <TouchableOpacity style={styles.OrderReadyView} onPress={()=>confirmOrder(item)}>
+                                <TouchableOpacity style={styles.OrderReadyView} onPress={() => confirmOrder(item)}>
                                     <Text style={styles.OrderReadyText}>Ready</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red", borderColor: "white" }]}>
@@ -138,7 +144,7 @@ const styles = StyleSheet.create({
     },
     TextPrice: {
         fontSize: 20,
-        fontFamily:"Ubuntu-Medium",
+        fontFamily: "Ubuntu-Medium",
         color: "black"
     },
     OrderReadyView: {
@@ -155,7 +161,7 @@ const styles = StyleSheet.create({
     OrderReadyText: {
         fontSize: 15,
         color: "green",
-        fontFamily:"Ubuntu-Medium" 
+        fontFamily: "Ubuntu-Medium"
     }
 });
 export default PendingOrder
