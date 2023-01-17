@@ -67,8 +67,8 @@ function PendingOrder() {
                                 {
                                     item.order.map((value) => (
                                         <>
-                                            <Text key={value._id} style={{ fontSize: 20, color: "black", margin: 5, fontFamily: "Ubuntu-Regular" }}>dishName: {value.dishName}</Text>
-                                            <Text style={{ fontSize: 20, color: "black", margin: 5, fontFamily: "Ubuntu-Regular" }}>quantity: {value.amount}</Text>
+                                            <Text key={value._id} style={{ fontSize: 20, color: "black", margin: 5, fontFamily: "Ubuntu-Regular" }}>dishName: {value.dishName} - (quantity: {value.amount})</Text>
+                                            {/* <Text style={{ fontSize: 20, color: "black", margin: 5, fontFamily: "Ubuntu-Regular" }}>quantity: {value.amount}</Text> */}
                                             {/* <Text style={{ fontSize: 20, color: "black", margin: 5, fontFamily: "Ubuntu-Regular" }}>price: {value.price}</Text> */}
                                         </>
 
