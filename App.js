@@ -3,6 +3,7 @@ import TopBar from './Navigators/TopBar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {NotificationListner,requestUserPermission} from './src/utils/NotificationHandlers';
+import InternetCheck from './src/utils/InternetCheck';
 const App = () => {
   const Stack = createNativeStackNavigator();
   useEffect(()=>{
@@ -17,7 +18,7 @@ const App = () => {
         </Stack.Navigator>
       </NavigationContainer>
 
-      {/* <AllOrder /> */}
+      <InternetCheck/>
     </>
   );
 };
