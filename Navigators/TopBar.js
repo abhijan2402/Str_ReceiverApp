@@ -16,11 +16,6 @@ const TopBar = () => {
       showIcon: false,
   
           tabBarStyle:[ {
-            // position:"absolute",
-            // bottom:25,
-            // left:20,
-            // right:20,
-            // elevation:0,
             backgroundColor:"#FFFFFF",
             height:70,
           },],
@@ -29,15 +24,6 @@ const TopBar = () => {
       <Tab.Screen name="AllOrder" component={AllOrder} options={{
         tabBarIcon:({focused})=>(
           <View style={{alignItems:'center',justifyContent:'center'}}>
-            {/* <Image
-              source={require('../src/asset/order.png')}
-              resizeMode='contain'
-              style={{
-                width:25,
-                height:25,
-                tintColor:focused ? '#047BD5' : 'black'
-              }}
-            /> */}
             <Text style={{color:focused ? '#047BD5' : 'black',fontFamily:"SourceSansPro-Regular"}}>AllOrder</Text>
           </View>
         )
@@ -46,17 +32,6 @@ const TopBar = () => {
       <Tab.Screen  name="PendingOrder" component={PendingOrder} options={{
         tabBarIcon:({focused})=>(
           <View style={{alignItems:'center',justifyContent:'center'}}>
-            {/* <Image
-            source={require('../src/asset/pend2.png')}
-            resizeMode='contain'
-            style={{
-              width:25,
-              height:25,
-              marginLeft:5,
-              tintColor:focused ? '#047BD5' : 'black'
-            }}
-            /> */}
-           
             <Text style={{color:focused ? '#047BD5' : 'black',fontFamily:"SourceSansPro-Regular"}}>PendingOrder</Text>
           </View>
         )

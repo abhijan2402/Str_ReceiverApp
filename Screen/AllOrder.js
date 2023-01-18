@@ -55,27 +55,9 @@ function AllOrder() {
                             <View>
                                 <Text style={[styles.TextPrice, { marginHorizontal: 10, marginVertical: 20 }]}>Address :{item.address}</Text>
                             </View>
-                            <View style={styles.DetailView}>
-                                {/* <Text style={styles.TextPrice}>Amount :{item.totalAmount}</Text>
-                                <TouchableOpacity style={styles.Amount}>
-                                    <Text style={{ color: "green", fontSize: 20, fontWeight: "600" }}>Ok</Text>
-                                </TouchableOpacity> */}
-                            </View>
-                            {/* <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-                                <TouchableOpacity style={styles.OrderReadyView}>
-                                    <Text style={styles.OrderReadyText}>Ready</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[styles.OrderReadyView, { backgroundColor: "red", borderColor: "white" }]}>
-                                    <Text style={[styles.OrderReadyText, { color: "white" }]}>Cancel</Text>
-                                </TouchableOpacity>
-                            </View> */}
                         </View>
                     ))
             }
-
-
-
-
         </ScrollView>
     )
 }
@@ -86,7 +68,6 @@ const styles = StyleSheet.create({
         height: windoHeight
     },
     BoxView: {
-        // borderWidth: 1,
         marginHorizontal: 10,
         marginVertical: 7,
         borderRadius: 10,
@@ -100,7 +81,6 @@ const styles = StyleSheet.create({
         alignContent: "center",
         alignItems: "center",
         paddingHorizontal: 10
-        // justifyContent: "space-around"
     },
     Amount: {
         borderWidth: 1,
