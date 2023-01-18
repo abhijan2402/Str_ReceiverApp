@@ -3,7 +3,7 @@ import React from 'react'
 
 const Login = ({navigation}) => {
   return (
-    <View style={styles.man}>
+    <View>
        <View style={styles.header}>
          <Text style={styles.main}>Login</Text>
        </View>
