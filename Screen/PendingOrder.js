@@ -2,12 +2,22 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { RefreshControl, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, Dimensions, TouchableOpacity } from 'react-native';
 const windoWidth = Dimensions.get('window').width;
 const windoHeight = Dimensions.get('window').height;
+import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import auth from '@react-native-firebase/auth';
+
 function PendingOrder() {
     let [allOrderArray1, setallOrderArray1] = useState([])
     const [refreshing, setRefreshing] = React.useState(false);
+    const [fcmToken, setfcmToken] = useState(null);
+    const [allUsersToken, setAllUsersToken] = useState([])
+
+
     let NewData = []
     useEffect(() => {
         data();
+        getFcmToken()
+        getAllUsers()
     }, []);
     const data = async () => {
         await fetch(`https://ordermanagementserver-production.up.railway.app/orderPending`, {
@@ -18,7 +28,7 @@ function PendingOrder() {
         }).then((res) => res.json()).then((data) => {
             NewData.push(data);
             setallOrderArray1(...NewData)
-            console.log(allOrderArray1, "I am new json")
+            // console.log(allOrderArray1, "I am new json")
 
         })
     }
@@ -36,6 +46,7 @@ function PendingOrder() {
             .then((res) => res.json())
             .then((response) => {
                 alert(response.message)
+                notificationHandler();
                 data();
             })
             .catch((e) => {
@@ -45,6 +56,44 @@ function PendingOrder() {
     const onRefresh = useCallback(() => {
         data()
     }, []);
+    const getAllUsers = () => {
+        firestore().collection('Users').get()
+            .then(querySnapShot => {
+                const user = querySnapShot._docs.map((token) => {
+                    return token._data.UserFcmToken
+                })
+                setAllUsersToken(user)
+            })
+            .catch((e) => {
+                console.log(e);
+            })
+    }
+    const notificationHandler = () => {
+        fetch('https://ordermanagementnotification-production.up.railway.app/triggerNotification', {
+            method: "POST",
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify({
+                tokens: allUsersToken,
+                notificationBody: "Order is ready"
+            })
+        })
+            .then((res) => res.json())
+            .then((data) => console.log(data.message))
+            .catch((e) => {
+                console.log(e);
+            })
+    }
+    const getFcmToken = async () => {
+        const cloudToken = await AsyncStorage.getItem("fcmtoken");
+        setfcmToken(cloudToken)
+    }
+    const logOut = () => {
+        auth()
+            .signOut()
+            .then(() => console.log('User signed out!'));
+    }
     return (
         <ScrollView style={styles.MainView}
             refreshControl={
@@ -52,6 +101,7 @@ function PendingOrder() {
             }>
             <View style={{ justifyContent: "center", alignItems: "center", marginVertical: 20 }}>
                 <Text style={{ fontSize: 20, color: "black", fontFamily: "Ubuntu-Bold" }}>Pending Order Details</Text>
+                <TouchableOpacity style={{ borderWidth: 1, padding: 10, marginVertical: 20, borderRadius: 5 }} onPress={logOut}><Text>LogOut</Text></TouchableOpacity>
             </View>
             {
                 allOrderArray1.length == 0 ? null :
@@ -63,7 +113,7 @@ function PendingOrder() {
                                     item.order.map((value) => (
                                         <>
                                             <Text key={value._id} style={{ fontSize: 20, color: "black", margin: 5, fontFamily: "Ubuntu-Regular" }}>dishName: {value.dishName} - (quantity: {value.amount})</Text>
-                                         </>
+                                        </>
 
                                     ))
                                 }
@@ -106,7 +156,7 @@ const styles = StyleSheet.create({
         alignContent: "center",
         alignItems: "center",
         paddingHorizontal: 10
-       },
+    },
     Amount: {
         borderWidth: 1,
         padding: 6,
