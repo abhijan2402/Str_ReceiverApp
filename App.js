@@ -42,7 +42,7 @@ function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="login">
           {
-            user == null ?
+            !user == null ?
               <>
                 <Stack.Screen name="signup" component={SignUp} />
                 <Stack.Screen name="login" component={SignIn} />

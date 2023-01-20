@@ -3,7 +3,7 @@ import { RefreshControl, ScrollView, StatusBar, StyleSheet, Text, useColorScheme
 const windoWidth = Dimensions.get('window').width;
 const windoHeight = Dimensions.get('window').height;
 import firestore from '@react-native-firebase/firestore';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import messaging from '@react-native-firebase/messaging';
 import auth from '@react-native-firebase/auth';
 
 function PendingOrder() {
@@ -86,8 +86,8 @@ function PendingOrder() {
             })
     }
     const getFcmToken = async () => {
-        const cloudToken = await AsyncStorage.getItem("fcmtoken");
-        setfcmToken(cloudToken)
+        let FCMToken=await messaging().getToken();
+        setfcmToken(FCMToken)
     }
     const logOut = () => {
         auth()
@@ -101,7 +101,7 @@ function PendingOrder() {
             }>
             <View style={{ justifyContent: "center", alignItems: "center", marginVertical: 20 }}>
                 <Text style={{ fontSize: 20, color: "black", fontFamily: "Ubuntu-Bold" }}>Pending Order Details</Text>
-                <TouchableOpacity style={{ borderWidth: 1, padding: 10, marginVertical: 20, borderRadius: 5 }} onPress={logOut}><Text>LogOut</Text></TouchableOpacity>
+                <TouchableOpacity style={{ borderWidth: 1, padding: 10, marginVertical: 20, borderRadius: 5 }} onPress={logOut}><Text style={{color:"black"}}>LogOut</Text></TouchableOpacity>
             </View>
             {
                 allOrderArray1.length == 0 ? null :

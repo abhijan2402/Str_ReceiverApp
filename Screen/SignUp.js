@@ -1,10 +1,22 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import auth from '@react-native-firebase/auth';
+import messaging from '@react-native-firebase/messaging';
 const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [token,setToken]=useState(null);
+  useEffect(()=>{
+    getFcmToken()
+  })
+  const getFcmToken=async()=>{
+    try {
+      let FCMToken=await messaging().getToken();
+      setToken(FCMToken)
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const onsubmit = async () => {
     try {
 
@@ -17,7 +29,7 @@ const SignUp = ({ navigation }) => {
         .then((userCredential) => {
           var user = userCredential.user;
           firestore().collection('Users').doc(user.uid).set({
-            UserFcmToken: userFcmToken
+            UserFcmToken: token
           })
             .then(() => {
               console.log('User added!');
@@ -31,7 +43,6 @@ const SignUp = ({ navigation }) => {
           if (error.code === 'auth/invalid-email') {
             console.log('That email address is invalid!');
           }
-          // console.error(error);
         });
     } catch (error) {
       alert(error);
@@ -48,14 +59,18 @@ const SignUp = ({ navigation }) => {
 
 
         <View>
-          <TextInput style={{ backgroundColor: '#ededed', height: 60, width: 250, marginLeft: 50, marginTop: 100 }}
+          <TextInput style={{ backgroundColor: '#ededed', height: 60, width: 250, marginLeft: 50, marginTop: 100,color:"black" }}
             value={email} onChangeText={value => setEmail(value)}
-            placeholder={"Email"} />
+            placeholder={"Email"} 
+            placeholderTextColor="black"
+            />
         </View>
         <View>
-          <TextInput style={{ backgroundColor: '#ededed', height: 60, width: 250, marginLeft: 50, marginTop: 30 }} placeholder={"Password"}
+          <TextInput style={{ backgroundColor: '#ededed', height: 60, width: 250, marginLeft: 50, marginTop: 30,color:"black" }} placeholder={"Password"}
             value={password} onChangeText={value => setPassword(value)}
-            secureTextEntry={true} />
+            secureTextEntry={true}
+            placeholderTextColor="black"
+          />
         </View>
       </View>
       <TouchableOpacity style={{ height: 50, width: 250, marginLeft: 70, marginTop: 20, backgroundColor: 'green', borderRadius: 20, marginBottom: 150 }}>

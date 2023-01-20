@@ -7,9 +7,11 @@ const Login = ({navigation}) => {
 
   const submit =async()=>{
     try {
-      const loginuser = await auth().signInWithEmailAndPassword(email, password);
-      navigation.navigate("pendingOrder")
-          console.log(loginuser)
+      auth().signInWithEmailAndPassword(email, password)
+      .then(()=>{        
+        navigation.navigate("pendingOrder")
+      })
+      .catch((e)=>console.log(e))
     } catch (error) {
       
     }
@@ -23,27 +25,30 @@ const Login = ({navigation}) => {
 
        <View style={{marginTop: 150, marginLeft: 15}}>
           <View>
-             <TextInput style={{backgroundColor: '#ededed',height: 60,width: 250,marginLeft: 50,marginTop: 30,}}
+             <TextInput style={{backgroundColor: '#ededed',height: 60,width: 250,marginLeft: 50,marginTop: 30,color:"black"}}
              value={email} onChangeText={value=>setEmail(value)}
                  placeholder={'Email'}
+                 placeholderTextColor="black"
        />
           </View>
           <View>
-             <TextInput style={{ backgroundColor: '#ededed', height: 60, width: 250, marginLeft: 50, marginTop: 30,}}secureTextEntry={true}
+             <TextInput style={{ backgroundColor: '#ededed', height: 60, width: 250, marginLeft: 50, marginTop: 30,color:"black"}}secureTextEntry={true}
              value={password} onChangeText={value=>setPassword(value)}
+             placeholderTextColor="black"
                placeholder={'Password'}/>
       </View>
     </View>
    
-    <TouchableOpacity style={{height: 50,width: 250,marginLeft: 70,marginTop: 20,backgroundColor: 'green',borderRadius: 20,marginBottom: 10,}}>
+    <TouchableOpacity style={{height: 50,width: 250,marginLeft: 70,marginTop: 20,backgroundColor: 'green',borderRadius: 20,marginBottom: 10,}} onPress={()=>submit()}>
        <Text style={{textAlign: 'center',marginTop: 15,color: 'white',fontFamily: 'SourceSansPro-Bold',fontSize: 15,}} 
-        onPress={()=>submit()}
         >Login</Text>  
     </TouchableOpacity>
 
     <View style={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
-      <Text>Don't Have an Account?</Text>
-      <Text style={{color:"blue"}} onPress={()=>{navigation.navigate("SignUp")}}>Sign Up</Text>
+      <Text style={{color:"black"}}>Don't Have an Account?</Text>
+      <TouchableOpacity onPress={()=>navigation.navigate("signup")}>
+        <Text style={{color:"blue"}} >Sign Up</Text>
+      </TouchableOpacity>
       </View>
 
   </View>
